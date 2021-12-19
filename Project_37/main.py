@@ -19,7 +19,7 @@ def Re(v, D):
 
 start_time = t.time()
 
-n = 150  # кол-во нейронов
+n = 50  # кол-во нейронов
 count = 10000  # кол-во входных данных
 counter = 0
 
@@ -44,17 +44,21 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
 
 model = keras.Sequential(
     [Dense(units=n, input_shape=(4,), activation='tanh'),
+     Dense(units=7, activation='tanh'),
+     Dense(units=n, activation='tanh'),
+     Dense(units=7, activation='tanh'),
+     Dense(units=n, activation='tanh'),
+     Dense(units=7, activation='tanh'),
      Dense(units=n, activation='tanh'),
      Dense(units=n, activation='tanh'),
-     Dense(units=n, activation='tanh'),
-     Dense(units=n, activation='tanh'),
+     Dense(units=7, activation='tanh'),
      Dense(units=n, activation='tanh'),
      Dense(units=n, activation="tanh"),
      Dense(units=1, activation='sigmoid')])
-model.compile(optimizer=keras.optimizers.RMSprop(0.00001), loss='mean_squared_error')  # создание НС
+model.compile(optimizer=keras.optimizers.RMSprop(0.0001), loss='mean_squared_error')  # создание НС
 # Nadam
 # RMSprop
-history = model.fit(X_train, Y_train, epochs=550, verbose=1)  # обучение НС
+history = model.fit(X_train, Y_train, epochs=250, verbose=1)  # обучение НС
 
 # plt.xlabel('epoch')
 # plt.ylabel('loss')
@@ -72,6 +76,7 @@ accur = s / len(Y_test)
 # оценки работы программы
 print("Среднее процентное отклонение", accur * 100)
 print("Максимальное отклонение =", max(dif))
+print("Минимальное отклонение =", min(dif))
 print("Время работы = %s seconds " % (t.time() - start_time))
 
 # while str != 'exit':
